@@ -1,0 +1,7 @@
+.h.in-Files
+src/config.h.in
+src/gflags/gflags.h.in
+src/gflags/gflags_completions.h.in
+src/gflags/gflags_declare.h.in
+
+.in.in-Files
