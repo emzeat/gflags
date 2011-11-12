@@ -62,7 +62,7 @@ endif()
 mz_use_default_compiler_settings()
 mz_add_definition(NO_THREADS)
 add_library(gflags STATIC ${SRCS} ${HDRS})
-
+mz_target_props(gflags)
 
 
 ## gflags_unittest stuff
