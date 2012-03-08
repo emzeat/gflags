@@ -35,9 +35,6 @@
 # error You should only be including windows/port.cc in a windows environment!
 #endif
 
-#define _CRT_SECURE_NO_WARNINGS
-#pragma warning(disable : 4996)
-
 #include <config.h>
 #include <string.h>    // for strlen(), memset(), memcmp()
 #include <assert.h>

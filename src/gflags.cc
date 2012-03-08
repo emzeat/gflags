@@ -93,11 +93,6 @@
 # define __STDC_FORMAT_MACROS 1   // gcc requires this to get PRId64, etc.
 #endif
 
-#if _WIN32
-# define _CRT_SECURE_NO_WARNINGS
-# pragma warning(disable : 4996)
-#endif
-
 #include <gflags/gflags.h>
 #include <assert.h>
 #include <ctype.h>
@@ -188,6 +183,7 @@ static void ReportError(DieWhenReporting should_die, const char* format, ...) {
   vsnprintf(error_message, sizeof(error_message), format, ap);
   va_end(ap);
   fprintf(stderr, "%s", error_message);
+  fflush(stderr);   // should be unnecessary, but cygwin's rxvt buffers stderr
   if (should_die == DIE) gflags_exitfunc(1);
 }
 
@@ -497,6 +493,7 @@ class CommandLineFlag {
   string default_value() const { return defvalue_->ToString(); }
   const char* type_name() const { return defvalue_->TypeName(); }
   ValidateFnProto validate_function() const { return validate_fn_proto_; }
+  const void* flag_ptr() const { return current_->value_buffer_; }
 
   void FillCommandLineFlagInfo(struct CommandLineFlagInfo* result);
 
@@ -578,6 +575,7 @@ void CommandLineFlag::FillCommandLineFlagInfo(
   UpdateModifiedBit();
   result->is_default = !modified_;
   result->has_validator_fn = validate_function() != NULL;
+  result->flag_ptr = flag_ptr();
 }
 
 void CommandLineFlag::UpdateModifiedBit() {

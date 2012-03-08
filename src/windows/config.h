@@ -19,8 +19,8 @@
    "config.h" before anything else. */
 #ifndef GFLAGS_DLL_DECL
 # define GFLAGS_IS_A_DLL  1   /* not set if you're statically linking */
-# define GFLAGS_DLL_DECL  //__declspec(dllexport)
-# define GFLAGS_DLL_DECL_FOR_UNITTESTS  //__declspec(dllimport)
+# define GFLAGS_DLL_DECL  __declspec(dllexport)
+# define GFLAGS_DLL_DECL_FOR_UNITTESTS  __declspec(dllimport)
 #endif
 
 /* Namespace for Google classes */
@@ -134,6 +134,6 @@
 #endif
 
 // TODO(csilvers): include windows/port.h in every relevant source file instead?
-#include "port.h"
+#include "windows/port.h"
 
 #endif  /* GOOGLE_GFLAGS_WINDOWS_CONFIG_H_ */

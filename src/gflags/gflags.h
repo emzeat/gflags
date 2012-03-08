@@ -80,7 +80,7 @@
 
 #include <string>
 #include <vector>
-#include <gflags/gflags_declare.h>  // IWYU pragma: export
+#include <gflags/gflags_declare.h>    // IWYU pragma: export
 namespace google {
 
 //
@@ -88,9 +88,9 @@ namespace google {
 // them.  Our automated opensourcing tools use this as a signal to do
 // appropriate munging for windows, which needs to add GFLAGS_DLL_DECL.
 //
-#ifdef SWIG  // it apparently can't see the define in gflags_declare.h
-# define GFLAGS_DLL_DECL  /**/
-#endif
+#define GFLAGS_DLL_DECL  /* rewritten to be non-empty in windows dir */
+#define GFLAGS_DLL_DEFINE_FLAG  /* rewritten to be non-empty in windows dir */
+
 
 // --------------------------------------------------------------------
 // To actually define a flag in a file, use DEFINE_bool,
@@ -158,6 +158,7 @@ struct GFLAGS_DLL_DECL CommandLineFlagInfo {
   bool is_default;        // true if the flag has the default value and
                           // has not been set explicitly from the cmdline
                           // or via SetCommandLineOption
+  const void* flag_ptr;   // pointer to the flag's current value (i.e. FLAGS_foo)
 };
 
 // Using this inside of a validator is a recipe for a deadlock.
@@ -266,7 +267,10 @@ extern std::string SetCommandLineOptionWithMode(const char* name, const char* va
 // usage example above, the compiler would complain that it's an
 // unused variable.
 //
-// This class is thread-safe.
+// This class is thread-safe.  However, its destructor writes to
+// exactly the set of flags that have changed value during its
+// lifetime, so concurrent _direct_ access to those flags
+// (i.e. FLAGS_foo instead of {Get,Set}CommandLineOption()) is unsafe.
 
 class GFLAGS_DLL_DECL FlagSaver {
  public:

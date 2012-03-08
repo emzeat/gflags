@@ -32,6 +32,7 @@ if(WIN32)
 	
 	set(HDRS
 		src/mutex.h
+		src/util.h
 		src/windows/config.h
 		src/windows/port.h
 		src/windows/gflags/gflags.h
@@ -51,6 +52,7 @@ else()
 	
 	set(HDRS
 		src/mutex.h
+		src/util.h
 	)
 
 	include_directories(
