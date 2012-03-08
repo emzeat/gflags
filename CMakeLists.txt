@@ -51,6 +51,8 @@ else()
 	)
 	
 	set(HDRS
+                src/gflags/gflags.h
+                src/gflags/gflags_completions.h
 		src/mutex.h
 		src/util.h
 	)
