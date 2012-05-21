@@ -83,6 +83,9 @@
 #include <gflags/gflags_declare.h>    // IWYU pragma: export
 namespace google {
 
+#define GFLAGS_DLL_DECL
+#define GFLAGS_DLL_DEFINE_FLAG
+
 //
 // NOTE: all functions below MUST have an explicit 'extern' before
 // them.  Our automated opensourcing tools use this as a signal to do

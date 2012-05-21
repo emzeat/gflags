@@ -12,6 +12,8 @@
 #ifndef GOOGLE_GFLAGS_WINDOWS_CONFIG_H_
 #define GOOGLE_GFLAGS_WINDOWS_CONFIG_H_
 
+#define GFLAGS_DLL_DECL
+
 /* Always the empty-string on non-windows systems. On windows, should be
    "__declspec(dllexport)". This way, when we compile the dll, we export our
    functions/classes. It's safe to define this here because config.h is only

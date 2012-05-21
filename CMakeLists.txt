@@ -42,6 +42,8 @@ if(WIN32)
 	include_directories(
 		${PROJECT_SOURCE_DIR}/src/windows/gflags
 		${PROJECT_SOURCE_DIR}/src/windows/
+		${PROJECT_SOURCE_DIR}/src/
+		${CMAKE_CURRENT_BINARY_DIR}/src/
 	)
 else()
 	set(SRCS
