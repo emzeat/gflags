@@ -4,6 +4,10 @@ INCLUDE (CheckFunctionExists)
 INCLUDE (CheckSymbolExists)
 project(gflags)
 
+if(NOT HAS_MZ_GLOBAL)
+    include(global.cmake)
+endif()
+
 CHECK_INCLUDE_FILES (dlfcn.h HAVE_DLFCN_H)
 CHECK_INCLUDE_FILES (fnmatch.h HAVE_FNMATCH_H)
 CHECK_INCLUDE_FILES (inttypes.h HAVE_INTTYPES_H)
@@ -68,7 +72,39 @@ endif()
 mz_use_default_compiler_settings()
 mz_add_definition(NO_THREADS)
 add_library(gflags STATIC ${SRCS} ${HDRS})
+set_property(TARGET gflags PROPERTY VERSION 2.0)
+set_property(TARGET gflags PROPERTY SOVERSION 2.0)
 mz_target_props(gflags)
+
+if(WIN32)
+    install(TARGETS gflags
+                LIBRARY DESTINATION lib
+                RUNTIME DESTINATION bin
+                ARCHIVE DESTINATION lib)
+    install(DIRECTORY src/windows/gflags
+                DESTINATION include
+                PATTERN "*.svn" EXCLUDE)
+    install(DIRECTORY doc
+                DESTINATION doc
+                PATTERN "*.svn" EXCLUDE)
+else()
+    install(TARGETS gflags
+                LIBRARY DESTINATION lib
+                RUNTIME DESTINATION bin
+                ARCHIVE DESTINATION lib)
+    install(DIRECTORY src/gflags
+                DESTINATION include
+                PATTERN "*.svn" EXCLUDE)
+    if(APPLE)
+        install(DIRECTORY doc
+                DESTINATION Library/Documentation/gflags
+                PATTERN "*.svn" EXCLUDE)
+    else()
+        install(DIRECTORY doc
+                DESTINATION share/doc/gflags-doc
+                PATTERN "*.svn" EXCLUDE)
+    endif()
+endif()
 
 
 ## gflags_unittest stuff
