@@ -27,7 +27,7 @@ sudo pbuilder build --buildresult $BUILDDIR ../*.dsc
 echo -- retrieve packages
 #cd ..
 lintian *.deb
-cp *.deb ../*.dsc ../*.tar.gz ../*.changes $CURRENT/../
+mv *.deb ../*.dsc ../*.tar.gz ../*.changes $CURRENT/../
 
 # cleanup
 echo -- cleanup
