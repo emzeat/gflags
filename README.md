@@ -17,14 +17,12 @@ Installation
 
 For building in a Unix environment, simply type
 
-   cmake -G 'Unix Makefiles' && make && make install
+    cmake -G 'Unix Makefiles' && make && make install
 
 On windows, open a command prompt and enter
 
-   cmake -G 'Visual Studio 10'
+    cmake -G 'Visual Studio 10'
 
 This will generate project files for Visual Studio 2010.
 
 Of course you can use any other CMake generator you like.
-
-A debian package is available at https://launchpad.net/~mlba-team/+archive/stable
