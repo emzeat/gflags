@@ -70,6 +70,7 @@ else()
 endif()
 
 mz_use_default_compiler_settings()
+mz_add_flag(GCC -fPIC)
 mz_add_definition(NO_THREADS)
 add_library(gflags STATIC ${SRCS} ${HDRS})
 set_property(TARGET gflags PROPERTY VERSION 2.0)
